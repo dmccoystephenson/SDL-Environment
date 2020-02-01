@@ -8,8 +8,8 @@ int main(int argc, char* args[]) {
 	environment.setTitle("Environment Test 2");
 	
 	// set width and height of the screen
-	environment.setScreenWidth(400);
-	environment.setScreenHeight(400);
+	environment.setScreenWidth(500);
+	environment.setScreenHeight(500);
 	
 	// initialize
 	environment.init();
@@ -20,10 +20,13 @@ int main(int argc, char* args[]) {
 	// load media
 	environment.loadMedia();
 	
-	// add text
-	environment.addText(25, 25, "Environment Test 2");
-	environment.addText(25, 100, "Text Object Functionality");
-	environment.addText(10, 10, "Test");
+	Text myText;
+	SDL_Color textColor = {0x00, 0x00, 0x00, 0xFF};
+	myText.init(25, 25, environment.getFont(), environment.getRenderer(), "Environment Test 2:", textColor);
+	
+	Text myText2;
+	textColor = {0x00, 0x00, 0x00, 0xFF};
+	myText2.init(25, 75, environment.getFont(), environment.getRenderer(), "Text Support", textColor);
 	
 	// main loop
 	while (environment.isRunning()) {
@@ -41,8 +44,9 @@ int main(int argc, char* args[]) {
 		environment.drawRectangle(environment.getW()/2 - 50, environment.getH()/2 - 50, 100, 100);
 		
 		// render text
-		environment.renderAllText();
-		
+		myText.render();
+		myText2.render();
+	
 		// present environment
 		environment.present();
 	}

@@ -5,6 +5,7 @@
 #include <SDL_ttf.h>
 #include <string>
 #include <vector>
+#include <fstream>
 
 #include "objects/Text.h"
 
@@ -34,13 +35,13 @@ class Environment {
 	// getters
 	int getW();
 	int getH();
+	SDL_Renderer* getRenderer();
+	TTF_Font* getFont();
 	
 	// rendering methods
 	void setRenderColor(int r, int g, int b, int a);
 	void clear();
 	void present();
-	void addText(int x, int y, std::string text);
-	void renderAllText();
 	
 	// drawing methods
 	void drawRectangle(int x, int y, int w, int h);
@@ -56,9 +57,6 @@ class Environment {
 	TTF_Font* font = NULL;
 	int fontSize = 16;
 	
-	// the text object vector
-	std::vector<Text> textObjects;
-	
 	std::string title;
 	
 	// event holder
@@ -66,4 +64,7 @@ class Environment {
 	
 	// flags
 	bool running;
+	
+	// logger
+	std::ofstream log;
 };

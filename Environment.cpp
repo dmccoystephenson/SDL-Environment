@@ -13,7 +13,8 @@ Environment::~Environment() { // dtor
 
 // primary methods
 void Environment::init() { // initializer            
-
+	log.open("log.txt");
+	log << "Initializing!" << std::endl;
 	SDL_Init(SDL_INIT_VIDEO);
 	TTF_Init();
 	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
@@ -22,22 +23,21 @@ void Environment::init() { // initializer
 }
 	
 void Environment::loadMedia() { // media loader
-	font = TTF_OpenFont("lazy.ttf", fontSize);
+	font = TTF_OpenFont("objects/lazy.ttf", fontSize);
 	if (font == NULL) {
+		log << "Font is NULL!" << std::endl;
 		cleanUp(); // end immediately
 	}
 }
 
 void Environment::cleanUp() { // clean up method
-	// clear all text objects
-	for (size_t i = 0; i < textObjects.size(); i++) {
-		textObjects[i].free();
-	}
-	
+	log << "Cleaning up!" << std::endl;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	TTF_Quit();
 	SDL_Quit();
+	
+	log.close();
 }
 
 // secondary methods
@@ -83,6 +83,14 @@ int Environment::getH() {
 	return screenHeight;
 }
 
+SDL_Renderer* Environment::getRenderer() {
+	return renderer;
+}
+
+TTF_Font* Environment::getFont() {
+	return font;
+}
+
 // rendering methods
 void Environment::setRenderColor(int r, int g, int b, int a) {
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -96,21 +104,8 @@ void Environment::present() {
 	SDL_RenderPresent(renderer);
 }
 
-void Environment::addText(int x, int y, std::string text) {
-	Text newText;
-	textObjects.push_back(newText);
-	SDL_Color textColor = {0x00, 0x00, 0x00, 0xFF};
-	textObjects[textObjects.size() - 1].init(x, y, font, renderer, text, textColor);
-}
-
-void Environment::renderAllText() {
-	for (size_t i = 0; i < textObjects.size(); i++) {
-		textObjects[i].render();
-	}
-}
-
 // drawing methods
 void Environment::drawRectangle(int x, int y, int w, int h) {
 	SDL_Rect fillRect = {x, y, w, h};		
-	SDL_RenderFillRect( renderer, &fillRect ); // draw color using rect
+	SDL_RenderFillRect(renderer, &fillRect); // draw color using rect
 }
