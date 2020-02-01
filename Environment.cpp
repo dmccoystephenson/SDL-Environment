@@ -15,18 +15,28 @@ Environment::~Environment() { // dtor
 void Environment::init() { // initializer            
 
 	SDL_Init(SDL_INIT_VIDEO);
+	TTF_Init();
 	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	running = true;
 }
 	
 void Environment::loadMedia() { // media loader
-	
+	font = TTF_OpenFont("lazy.ttf", fontSize);
+	if (font == NULL) {
+		cleanUp(); // end immediately
+	}
 }
 
 void Environment::cleanUp() { // clean up method
+	// clear all text objects
+	for (size_t i = 0; i < textObjects.size(); i++) {
+		textObjects[i].free();
+	}
+	
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+	TTF_Quit();
 	SDL_Quit();
 }
 
@@ -60,6 +70,10 @@ void Environment::setTitle(std::string newTitle) {
 	title = newTitle;
 }
 
+void Environment::setFontSize(int size) {
+	fontSize = size;
+}
+
 // getters
 int Environment::getW() {
 	return screenWidth;
@@ -80,6 +94,19 @@ void Environment::clear() {
 
 void Environment::present() {
 	SDL_RenderPresent(renderer);
+}
+
+void Environment::addText(int x, int y, std::string text) {
+	Text newText;
+	textObjects.push_back(newText);
+	SDL_Color textColor = {0x00, 0x00, 0x00, 0xFF};
+	textObjects[textObjects.size() - 1].init(x, y, font, renderer, text, textColor);
+}
+
+void Environment::renderAllText() {
+	for (size_t i = 0; i < textObjects.size(); i++) {
+		textObjects[i].render();
+	}
 }
 
 // drawing methods

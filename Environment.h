@@ -2,7 +2,11 @@
 //		 do all this stuff every time.
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <string>
+#include <vector>
+
+#include "objects/Text.h"
 
 class Environment {
   public:
@@ -25,6 +29,7 @@ class Environment {
 	void setScreenWidth(int w);
 	void setScreenHeight(int h);
 	void setTitle(std::string newTitle);
+	void setFontSize(int size);
 	
 	// getters
 	int getW();
@@ -34,7 +39,8 @@ class Environment {
 	void setRenderColor(int r, int g, int b, int a);
 	void clear();
 	void present();
-	
+	void addText(int x, int y, std::string text);
+	void renderAllText();
 	
 	// drawing methods
 	void drawRectangle(int x, int y, int w, int h);
@@ -43,8 +49,15 @@ class Environment {
 	int screenWidth;
 	int screenHeight;
   
-	SDL_Window* window; // our window
-	SDL_Renderer* renderer; // our renderer	
+	SDL_Window* window = NULL; // our window
+	SDL_Renderer* renderer = NULL; // our renderer	
+	
+	// font
+	TTF_Font* font = NULL;
+	int fontSize = 16;
+	
+	// the text object vector
+	std::vector<Text> textObjects;
 	
 	std::string title;
 	
