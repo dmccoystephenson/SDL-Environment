@@ -23,7 +23,7 @@ void myButtonFunc() {
 	}
 	else if (timesClicked == 3) {
 		myText3.loadText("Jeepers", textColor);
-	};
+	}
 	
 	myText3.setPosition(160, 200);
 }

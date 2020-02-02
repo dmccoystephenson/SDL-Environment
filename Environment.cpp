@@ -23,7 +23,7 @@ void Environment::init() { // initializer
 }
 	
 void Environment::loadMedia() { // media loader
-	font = TTF_OpenFont("objects/lazy.ttf", fontSize);
+	font = TTF_OpenFont("objects/bboron.ttf", fontSize); // credit: https://www.1001fonts.com/arial-fonts.html
 	if (font == NULL) {
 		log << "Font is NULL!" << std::endl;
 		cleanUp(); // end immediately
