@@ -18,7 +18,7 @@ void Environment::init() { // initializer
 	SDL_Init(SDL_INIT_VIDEO);
 	TTF_Init();
 	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	running = true;
 }
 	
@@ -49,8 +49,8 @@ bool Environment::pollEvent() {
 	return SDL_PollEvent(&event);
 }
 
-SDL_Event Environment::getEvent() {
-	return event;
+SDL_Event* Environment::getEvent() {
+	return &event;
 }
 
 // setters 
