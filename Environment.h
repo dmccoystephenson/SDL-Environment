@@ -8,6 +8,7 @@
 #include <fstream>
 
 #include "objects/Text.h"
+#include "objects/Button.h"
 
 class Environment {
   public:
@@ -23,7 +24,7 @@ class Environment {
 	// secondary methods
 	bool isRunning();
 	bool pollEvent();
-	SDL_Event getEvent();
+	SDL_Event* getEvent();
 	
 	// setters
 	void setRunning(bool b);
