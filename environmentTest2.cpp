@@ -14,11 +14,11 @@ int main(int argc, char* args[]) {
 	// initialize
 	environment.init();
 	
-	// set font size
-	environment.setFontSize(32);
-	
 	// load media
 	environment.loadMedia();
+	
+	// set font size
+	environment.setFontSize(32);
 	
 	Text myText;
 	SDL_Color textColor = {0x00, 0x00, 0x00, 0xFF};
@@ -31,7 +31,7 @@ int main(int argc, char* args[]) {
 	// main loop
 	while (environment.isRunning()) {
 		while (environment.pollEvent() != 0) {
-			if (environment.getEvent().type == SDL_QUIT) {
+			if (environment.getEvent()->type == SDL_QUIT) {
 				environment.setRunning(false);
 			}
 		}
