@@ -1,7 +1,7 @@
 #include "Environment.h"
 
 // tors
-Environment::Environment() { // constructor
+Environment::Environment() {
 	title = "Environment Default Title";   
 	screenWidth = 640;
 	screenHeight = 480;
@@ -12,7 +12,7 @@ Environment::~Environment() { // dtor
 }
 
 // primary methods
-void Environment::init() { // initializer            
+void Environment::init() {          
 	log.open("log.txt");
 	log << "Initializing!" << std::endl;
 	SDL_Init(SDL_INIT_VIDEO);
@@ -22,15 +22,15 @@ void Environment::init() { // initializer
 	running = true;
 }
 	
-void Environment::loadMedia() { // media loader
-	font = TTF_OpenFont("objects/lazy.ttf", fontSize);
+void Environment::loadMedia() {
+	font = TTF_OpenFont("objects/bboron.ttf", fontSize); // credit: https://www.1001fonts.com/arial-fonts.html
 	if (font == NULL) {
 		log << "Font is NULL!" << std::endl;
-		cleanUp(); // end immediately
+		cleanUp();
 	}
 }
 
-void Environment::cleanUp() { // clean up method
+void Environment::cleanUp() {
 	log << "Cleaning up!" << std::endl;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);

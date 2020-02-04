@@ -13,13 +13,13 @@
 class Environment {
   public:
 	// tors
-	Environment(); // constructor
-	~Environment(); // dtor
+	Environment();
+	~Environment();
 	
 	// primary methods
-	void init(); // initializer
-	void loadMedia(); // media loader
-	void cleanUp(); // clean up method
+	void init();
+	void loadMedia();
+	void cleanUp();
 	
 	// secondary methods
 	bool isRunning();
@@ -51,21 +51,17 @@ class Environment {
 	int screenWidth;
 	int screenHeight;
   
-	SDL_Window* window = NULL; // our window
-	SDL_Renderer* renderer = NULL; // our renderer	
+	SDL_Window* window = NULL;
+	SDL_Renderer* renderer = NULL;
 	
-	// font
 	TTF_Font* font = NULL;
 	int fontSize = 16;
 	
 	std::string title;
 	
-	// event holder
 	SDL_Event event;
 	
-	// flags
 	bool running;
 	
-	// logger
 	std::ofstream log;
 };
